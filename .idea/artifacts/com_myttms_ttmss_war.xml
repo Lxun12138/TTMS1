@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="com.myttms.ttmss:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="com.myttms.ttmss.war">
+      <element id="artifact" artifact-name="com.myttms.ttmss:war exploded" />
+    </root>
+  </artifact>
+</component>
