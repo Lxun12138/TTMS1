@@ -53,10 +53,11 @@ public class UserController {
             page = "/ordinary/shows";
 
         } else if (result == 1) {
-
+            Employee employee1 = employeeService.selectEmployeeByEmp_no(emp_no);
+            int employee_id = employee1.getEmp_id();
             request.getSession().setAttribute("login", "yes");
             request.getSession().setAttribute("b", "ok");
-            request.getSession().setAttribute("names", emp_no);
+            request.getSession().setAttribute("names", employee_id);
             Employee employee = employeeService.selectEmployeeByEmp_no(emp_no);
             request.setAttribute("employee", employee);
              page = "/manager/index";

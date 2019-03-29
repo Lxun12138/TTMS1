@@ -18,6 +18,10 @@
         #{sched_ticket_price})
     </insert>
 
+    <select id="searchSchIdByInfo" parameterType="Schedule" resultType="int" >
+        select sched_id from schedule where studio_id=#{studio_id} and play_id=#{play_id} and sched_time=#{sched_time}
+
+    </select>
 
     <delete id="deleteSchedule" parameterType="int">
         delete from schedule where sched_id = #{sched_id}

@@ -46,6 +46,17 @@ public class Seat {
         return seat_status;
     }
 
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "seat_id=" + seat_id +
+                ", studio_id=" + studio_id +
+                ", seat_row=" + seat_row +
+                ", seat_column=" + seat_column +
+                ", seat_status=" + seat_status +
+                '}';
+    }
+
     public void setSeat_status(int seat_status) {
         this.seat_status = seat_status;
     }

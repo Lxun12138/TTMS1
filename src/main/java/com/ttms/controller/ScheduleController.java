@@ -1,19 +1,13 @@
 package com.ttms.controller;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-import com.ttms.entity.Play;
-import com.ttms.entity.Schedule;
-import com.ttms.entity.ScheduleDetail;
-import com.ttms.entity.Studio;
-import com.ttms.service.PageService;
-import com.ttms.service.PlayService;
-import com.ttms.service.ScheduleService;
-import com.ttms.service.StudioService;
+import com.ttms.dao.ScheduleDAO;
+import com.ttms.dao.TicketDAO;
+import com.ttms.entity.*;
+import com.ttms.service.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,6 +28,15 @@ public class ScheduleController {
     StudioService studioService;
     @Autowired
     PlayService playService;
+    @Autowired
+    TicketDAO ticketDAO;
+    @Autowired
+    ScheduleDAO scheduleDAO;
+
+    @Autowired
+    SeatService seatService;
+    @Autowired
+    TicketService ticketService;
 
 
 
@@ -75,6 +78,26 @@ public class ScheduleController {
         System.out.println(sched_time);
         String sched_ticket_price = request.getParameter("schedprice");
         String errors = scheduleService.addSchedule(studio_id, play_id, sched_time, sched_ticket_price);
+        //  Schedule schedule=new Schedule();
+        int studio_id1=Integer.parseInt(studio_id);
+        int play_id1=Integer.parseInt(play_id);
+        Double sched_ticket_price1=Double.parseDouble(sched_ticket_price);
+
+        int sched_id=scheduleDAO.searchSchIdByInfo(studio_id1,play_id1,sched_time,sched_ticket_price1);
+
+        List<Seat> seatList=seatService.selectSeat_idByStudio_id(Integer.parseInt(studio_id));
+        for (int i = 0; i <seatList.size() ; i++) {
+            Ticket ticket=new Ticket();
+            ticket.setSched_id(sched_id);
+            if(seatList.get(i).getSeat_status()==1 || seatList.get(i).getSeat_status()==-1){
+                ticket.setTicket_status(9);
+            }else{
+                ticket.setTicket_status(0);
+            }
+            ticket.setSeat_id(seatList.get(i).getSeat_id());
+            ticket.setTicket_price(Double.parseDouble(sched_ticket_price));
+            ticketService.insertTicket(ticket);
+        }
         request.setAttribute("errors", errors);
         return new ModelAndView("/manager/schedule/AddSchedule2");
 

@@ -113,7 +113,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
     <div class="container_wrap">
         <div class="content">
-            <h2 class="m_3" id="tt">热映电影</h2>
+            <h2 class="m_3" id="tt">电影</h2>
             <div class="movie_top">
                 <div class="col-md-9 movie_box">
                     <!-- Movie variant with time -->

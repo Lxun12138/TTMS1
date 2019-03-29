@@ -26,6 +26,19 @@ public class Sale {
         this.emp_id = emp_id;
     }
 
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "sale_ID=" + sale_ID +
+                ", emp_id=" + emp_id +
+                ", sale_time='" + sale_time + '\'' +
+                ", sale_payment=" + sale_payment +
+                ", sale_change=" + sale_change +
+                ", sale_type=" + sale_type +
+                ", sale_status=" + sale_status +
+                '}';
+    }
+
     public String getSale_time() {
         return sale_time;
     }

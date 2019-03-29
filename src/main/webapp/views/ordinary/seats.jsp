@@ -545,28 +545,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             %>
                                             <br/>
                                             <%
-                                                for(int i = 1; i < row+1; i++){
+                                                for(int i = 0; i < row; i++){
                                             %>
-                                            <span class="myspan"><span class="seet3" style="font-size: 17px;color: #c3c3c3;"><%=i%></span></span>
-                                            <%        for(int j = 1; j < col+1; j++ ){
-                                                if(seat_statu[i][j] == 0){
-
+                                            <span class="myspan"><span class="seet3" style="font-size: 17px;color: #c3c3c3;"><%=i+1%></span></span>
+                                            <%        for(int j = 0; j < col; j++ ){
+                                                if (ticketList.get(i*col+j).getTicket_status()==0){
                                             %>
                                             <span class="myspan"><span class="seet0" onclick="test1(this,<%=i%>,<%=j%>,<%=studio.getStudio_id()%>,<%=schedule.getSched_id()%>)"></span></span>
 
                                             <%
                                             }
-                                            else if(seat_statu[i][j] == 1){
+                                            else if(ticketList.get(i*col+j).getTicket_status()==9){
 
                                             %>
-                                            <span class="myspan"><span class="seet1" onclick="test1(this,<%=i%>,<%=j%>,<%=studio.getStudio_id()%>,<%=schedule.getSched_id()%>)"></span></span>
+                                            <span class="myspan"><span class="seet1"></span></span>
                                             <%
                                             }
-                                            else if(seat_statu[i][j] == -1){
-
+                                            else if(ticketList.get(i*col+j).getTicket_status()==-1){
 
                                             %>
-                                            <span class="myspan"><span class="seet2" onclick="test1(this,<%=i%>,<%=j%>,<%=studio.getStudio_id()%>,<%=schedule.getSched_id()%>)"></span></span>
+                                            <span class="myspan"><span class="seet2"></span></span>
                                             <%
 
                                             }
@@ -622,8 +620,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <input type="text">
             </div>
             <div class="buy">
-                <label>票价:58元</label></br>
-                <label class="Price">共计:0元</label></br>
+                <label id="ticket_price">票价:<span id="price_span"><%=ticketList.get(1).getTicket_price()%></span>元</label></br>
+                <label class="Price">共计:<span id="total_price">0</span>元</label></br>
                 <a href="#" onclick="sendResult(<%=studio.getStudio_id()%>,<%=schedule.getSched_id()%>)">提交订单</a>
             </div>
         </div>
@@ -637,12 +635,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     var data={};
     var data1={};
     var order="";
+    var price=0;
 
 
     function sendResult(studio_id,sched_id) {
 
         data1.studio = studio_id;
         data1.sched = sched_id;
+        data1.price =price;
+
 
         var link = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHttp");
         link.open("post","/ticket/Saleitem",true);
@@ -661,8 +662,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     function change(m,i, j, studio_id, sched_id) {
 
-        var str = "第" + i + "排第" + j + "列";
-        order += i+","+j+"|";
+        var str = "第" + (i+1) + "排第" + (j+1) + "列";
+
+        order += (i+1)+","+(j+1)+"|";
 
         if ($(m).css("background-color") === "rgb(0, 128, 0)") {
 
@@ -691,11 +693,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             data.sched = sched_id;
             data.flag = -1;
         }
-        var suns = 58 * k;
+
+        var price1=document.getElementById("price_span").innerHTML;
+        var suns =price1 * k;
+        price = suns;
         $(".Price").html("共计:" + suns + "元");
         return data;
     }
-
 
     function test1(m,i, j, studio_id, sched_id){
         var link = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHttp");
@@ -703,12 +707,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         link.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         link.onreadystatechange=function(){
             if(link.readyState == 4 && link.status == 200){
-
                     alert("success!");
             }
 
         };
         var datas = change(m,i, j, studio_id, sched_id);
+
         link.send("data="+JSON.stringify(datas));
     }
 </script>

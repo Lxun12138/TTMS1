@@ -4,7 +4,7 @@ import com.ttms.entity.*;
 
 public interface SaleService {
 
-    public void insertSale(Sale sale);
+  //  public void insertSale(Sale sale);
     public void updateSale(Sale sale);
     public void selectSale();
     public int SearchSale(Ticket ticket);

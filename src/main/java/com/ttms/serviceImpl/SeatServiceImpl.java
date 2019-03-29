@@ -127,15 +127,12 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public List <Integer> selectSeat_idByStudio_id(int studio_id) {
+    public List <Seat> selectSeat_idByStudio_id(int studio_id) {
 
         List<Seat> seat=seatDAO.selectSeatByStudio_id(studio_id);
-        List<Integer> seat_id=new ArrayList<Integer>();
-        for (int i = 0; i <seat.size() ; i++) {
-            seat_id.add(seat.get(i).getSeat_id());
-        }
 
-        return seat_id;
+
+        return seat;
     }
 
     @Override

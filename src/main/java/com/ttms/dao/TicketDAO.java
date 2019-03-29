@@ -31,6 +31,11 @@ public interface TicketDAO {
     public Seat  serchforseat(Ticket ticket);
     public void updataTicket(@Param(value = "seat_id") int seat_id,
                              @Param(value = "sched_id") int sched_id);
+    public  int selectBySeat_idAndSched_id(@Param(value = "seat_id") int seat_id,
+                                           @Param(value = "sched_id") int sched_id);
 
 
+    List<Ticket> selectTicketByschedule_id(int sched_id);
+
+    Seat serchforseat1(int seat_id);
 }

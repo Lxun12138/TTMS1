@@ -153,7 +153,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     List<ScheduleDetail> lists = (List<ScheduleDetail>) request.getAttribute("scheduledetail");
     Play play = (Play) request.getAttribute("play");
     String[] type = play.getPlay_type().split(",");
-    String[] actor = play.getPlay_actor().split(",");
+
 %>
 <body>
 <div class="container">
@@ -206,22 +206,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </p>
                         <p class="movie_option"><strong>上映日期: </strong><%=play.getPlay_up_time()%></p>
                         <p class="movie_option"><strong>导演: </strong><span><%=play.getPlay_director()%></span></p>
-                        <p class="movie_option"><strong>演员: </strong>
-                            <%
-                                for(int i=0; i<actor.length; i++){
-                                    if(i == actor.length-1){
-                            %>
-                                         <span><%=actor[i]%></span>
-                            <%
-                                    }
-                                    else{
-
-                            %>
-                                        <span><%=actor[i]%></span>|
-                            <%
-                                    }
-                                }
-                            %>
                         </p>
                         <p class="movie_option"><strong>时长: </strong><%=play.getPlay_length()%></p>
                     </div>

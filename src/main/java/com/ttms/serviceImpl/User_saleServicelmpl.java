@@ -28,6 +28,42 @@ public class User_saleServicelmpl  implements User_saleService{
     @Autowired
     ScheduleDAO scheduleDAO;
 
+    @Override
+    public List<User_sale> selectUser_saleByScheduleId(int sched_id) {
+        System.out.println("进入退票查询");
+        String play_name = playDAO.selectPlayByPlay_id(scheduleDAO.selectScheduleBySched_id(sched_id).getPlay_id()).getPlay_name();
+        String studio_name = studioDAO.selectStudioByStudio_id(scheduleDAO.selectScheduleBySched_id(sched_id).getStudio_id()).getStudio_name();
+
+        Double d = scheduleDAO.selectScheduleBySched_id(sched_id).getSched_ticket_price();
+
+        List<User_sale> user_saleList = new ArrayList<User_sale>();
+
+
+
+        List<Ticket> ticketList = new ArrayList<Ticket>();
+        ticketList = ticketDAO.selectTicketByschedule_id(sched_id);
+        for(int i=0;i<ticketList.size();i++){
+            if(ticketList.get(i).getTicket_status() == 0)
+                continue;
+            else {
+                User_sale user_sale = new User_sale();
+                int x = ticketDAO.serchforseat1(ticketList.get(i).getSeat_id()).getSeat_row();
+                int y = ticketDAO.serchforseat1(ticketList.get(i).getSeat_id()).getSeat_column();
+                user_sale.setUser_id(0);
+                user_sale.setSced_time(null);
+                user_sale.setPlay_name(play_name);
+                user_sale.setStudio_name(studio_name);
+                user_sale.setCol(y);
+                user_sale.setRow(x);
+                user_sale.setPrices(d);
+                user_saleList.add(user_sale);
+
+                System.out.println("一条记录");
+            }
+        }
+        System.out.println(user_saleList.size());
+        return user_saleList;
+    }
 
     @Override
     public List<User_sale> selectUser_sale(User_sale user_sale) {

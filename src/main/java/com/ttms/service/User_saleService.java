@@ -11,4 +11,5 @@ public interface User_saleService {
     public List<User_sale> selectUser_sale(User_sale user_sale);
 
 
+    List<User_sale> selectUser_saleByScheduleId(int sched_id);
 }

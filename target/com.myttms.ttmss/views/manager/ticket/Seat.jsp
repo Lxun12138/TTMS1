@@ -150,26 +150,15 @@
         </ul>
     </div>
     <%
-        List<Studio> lists = (List<Studio>)request.getAttribute("list");
         List <Play> list1 = (List<Play>)request.getAttribute("play");
-        List<Schedule> list2= (List<Schedule>)request.getAttribute("schedule");
     %>
 
-    <form action="/ticket/seatshow" method="post">
+    <form action="/play/detailplayadmin" method="post">
     <div class="mian_b">
         <div class="mian_b1">
             &nbsp;
             &nbsp;
-            <select name="studioid">
-                <option value=""></option>
-                <%
-                    for(Studio list : lists){
-                %>
-                <option value="<%=list.getStudio_id()%>"><%=list.getStudio_name()%></option>
-                <% } %>
-            </select>
-
-            <select name="playid">
+            <select name="play">
                 <option value=""></option>
                 <%
                     for(Play list : list1){
@@ -177,22 +166,11 @@
                 <option value="<%=list.getPlay_id()%>"><%=list.getPlay_name()%></option>
                 <% } %>
             </select>
-
-
-            <select name="schedid">
-                <option value=""></option>
-                <%
-                    for(Schedule list : list2){
-                %>
-                <option value="<%=list.getSched_id()%>"><%=list.getSched_time()%></option>
-                <% } %>
-            </select>
-
             &nbsp;
             &nbsp;
             &nbsp;
             &nbsp;
-            <input type="submit" value="购票"　id="sbutton"/>
+            <input type="submit" value="选择影片"　id="sbutton"/>
 
 
             <div class="container">

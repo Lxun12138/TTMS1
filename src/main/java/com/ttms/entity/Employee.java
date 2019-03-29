@@ -1,9 +1,6 @@
 package com.ttms.entity;
 
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Employee {
 
     private int emp_id;

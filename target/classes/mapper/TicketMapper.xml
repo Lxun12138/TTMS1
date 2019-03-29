@@ -19,9 +19,20 @@
     </insert>
 
     <update id="updataTicket" >
-        update ticket set ticket_status=1 where seat_id=#{seat_id} and sched_id=#{sched_id}
+        update ticket set ticket_status=9 where seat_id=#{seat_id} and sched_id=#{sched_id}
     </update>
 
+    <select id="selectBySeat_idAndSched_id" resultType="int">
+        select ticket_id from ticket where seat_id=#{seat_id} and sched_id=#{sched_id}
+    </select>
+
+    <select id="selectTicketByschedule_id" parameterType="int" resultType="Ticket">
+    select * from ticket where sched_id = #{sched_id}
+ </select>
+
+    <select id="serchforseat1" parameterType="int" resultType="Seat">
+    select * from seat where seat_id = #{seat_id}
+</select>
 
 
     <!--<delete id="deleteStudio" parameterType="int">-->

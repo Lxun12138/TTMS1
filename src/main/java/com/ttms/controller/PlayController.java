@@ -88,7 +88,6 @@ public class PlayController{
         plays = playService.selectPlayByPlay_id(play);
         List<Schedule> scheds = scheduleService.selectScheduleByPlay_id(play);
         for(int i=0;i<scheds.size();i++){
-
             Studio studio = scheduleService.searchbyscid(scheds.get(i));
             plays = scheduleService.searchforplay(scheds.get(i));
             scheduleDetail.setPlay_name(plays.getPlay_name());
@@ -102,6 +101,34 @@ public class PlayController{
         request.setAttribute("scheduledetail",scheduleDetailList);
         request.setAttribute("play",plays);
         return new ModelAndView("/ordinary/detail");
+
+
+    }
+    @RequestMapping("/detailplayadmin")
+    public ModelAndView detailplayadmin(HttpServletRequest request){
+
+        Play plays;
+        List<ScheduleDetail> scheduleDetailList = new ArrayList<ScheduleDetail>();
+        ScheduleDetail scheduleDetail = new ScheduleDetail();
+        String play_id = request.getParameter("play");
+        int play = Integer.parseInt(play_id);
+        plays = playService.selectPlayByPlay_id(play);
+        List<Schedule> scheds = scheduleService.selectScheduleByPlay_id(play);
+        for(int i=0;i<scheds.size();i++){
+
+            Studio studio = scheduleService.searchbyscid(scheds.get(i));
+            plays = scheduleService.searchforplay(scheds.get(i));
+            scheduleDetail.setPlay_name(plays.getPlay_name());
+            scheduleDetail.setSched_id(scheds.get(i).getSched_id());
+            scheduleDetail.setSched_ticket_price(scheds.get(i).getSched_ticket_price());
+            System.out.println("price"+scheds.get(i).getSched_ticket_price());
+            scheduleDetail.setSched_time(scheds.get(i).getSched_time());
+            scheduleDetail.setStudio_name(studio.getStudio_name()+"|"+studio.getStudio_id());
+            scheduleDetailList.add(scheduleDetail);
+        }
+        request.setAttribute("scheduledetail",scheduleDetailList);
+        request.setAttribute("play",plays);
+        return new ModelAndView("/manager/ticket/detail");
 
 
     }

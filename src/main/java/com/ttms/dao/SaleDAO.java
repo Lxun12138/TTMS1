@@ -1,5 +1,6 @@
 package com.ttms.dao;
 import com.ttms.entity.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,12 +10,21 @@ import java.util.List;
 @Repository("SaleDAO")
 
 public interface SaleDAO {
-    public void insertSale(Sale sale);
+    public void insertSale(@Param(value = "emp_id") int emp_id,
+                           @Param(value = "sale_time") String sale_time,
+                           @Param(value = "sale_payment") double sale_payment,
+                           @Param(value = "sale_change") double sale_change,
+                           @Param(value = "sale_type") int sale_type,
+                           @Param(value = "sale_status") int sale_status);
+
     public void deleteSale(int slae_id);
     public void updateSale(Sale sale);
 
     public int SearchSale(Ticket ticket);
 
+
+    public int selectSale_id(@Param(value = "emp_id") int emp_id,
+                             @Param(value = "sale_time") String sale_time);
 
     public Sale selectPlayBySale_id(int sale_id);
     public List<Sale> selectSaleByEmp_id(int emp_id);

@@ -16,10 +16,10 @@ public class SaleServiceImpl implements SaleService{
 
     @Autowired
     SaleDAO saleDAO;
-    @Override
-    public void insertSale(Sale sale) {
-        saleDAO.insertSale(sale);
-    }
+//    @Override
+//    public void insertSale(Sale sale) {
+//        saleDAO.insertSale(sale);
+//    }
 
     @Override
     public void updateSale(Sale sale) {
